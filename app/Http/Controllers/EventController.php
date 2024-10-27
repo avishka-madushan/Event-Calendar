@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-  
     public function index(){
-        return view('user.index',
-            compact('users'));
+        $events = Event::all(); // Fetching events
+        return view('event.index', compact('events'));
     }
-    public function all(request $request) 
+
+    public function all(Request $request) 
     { 
-        Event::all();
+        return Event::all();
+    }
+
+    public function delete($id){
+        $event = Event::findOrFail($id);
+        return $event->delete();
     }
 }

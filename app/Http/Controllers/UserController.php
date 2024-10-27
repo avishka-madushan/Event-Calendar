@@ -1,16 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index(){
-        return view('user.index',
-            compact('users'));
+        $users = User::all(); // Added to fetch users
+        return view('user.index', compact('users'));
     }
-    public function all(request $request) 
+
+    public function all(Request $request) 
     { 
-        User::all();
+        return User::all();
+    }
+
+    public function delete($id){
+        $user = User::findOrFail($id);
+        return $user->delete();
     }
 }
