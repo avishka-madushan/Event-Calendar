@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\storeeventrequest;
+
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
