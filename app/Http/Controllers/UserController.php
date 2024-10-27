@@ -15,4 +15,11 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return $user->delete();
     }
+
+    public function store( $request){
+        User::create( $request->validated());
+        return redirect('users')->with('success','user created succesfully');
+    }
+
+    
 }
