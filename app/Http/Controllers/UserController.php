@@ -6,20 +6,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
-        return view('user.index',
-            compact('users'));
-    }
-
-    public function delete($id){
-        $user = User::findOrFail($id);
-        return $user->delete();
-    }
-
     public function store( $request){
         User::create( $request->validated());
         return redirect('users')->with('success','user created succesfully');
-    }
-
-    
+    }   
 }
