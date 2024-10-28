@@ -13,7 +13,7 @@ class EventController extends Controller
     public function store(storeeventrequest $request){
         Event::create( $request->validated());
         return redirect('events')->with('success','event created succesfully');
-
+    }
     public function index(){
         $events = Event::all(); // Fetching events
         return view('event.index', compact('events'));
