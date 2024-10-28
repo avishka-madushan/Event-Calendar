@@ -17,5 +17,4 @@ class Event extends Model
 
 }
 
-}
 
