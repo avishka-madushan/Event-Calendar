@@ -9,8 +9,24 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+
     public function store(storeeventrequest $request){
         Event::create( $request->validated());
         return redirect('events')->with('success','event created succesfully');
+
+    public function index(){
+        $events = Event::all(); // Fetching events
+        return view('event.index', compact('events'));
+    }
+
+    public function all(Request $request) 
+    { 
+        return Event::all();
+    }
+
+    public function delete($id){
+        $event = Event::findOrFail($id);
+        return $event->delete();
+
     }
 }

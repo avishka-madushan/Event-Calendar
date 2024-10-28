@@ -14,4 +14,8 @@ class Event extends Model
         'date',
         'userid',
     ];
+
 }
+
+}
+
