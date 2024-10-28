@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+     public function update(Request $request, $id){
+        $event = Event::findOrFail($id);
+        return $event->delete();
+    }
 
     public function store(storeeventrequest $request){
         Event::create( $request->validated());
@@ -27,6 +31,5 @@ class EventController extends Controller
     public function delete($id){
         $event = Event::findOrFail($id);
         return $event->delete();
-
     }
 }
