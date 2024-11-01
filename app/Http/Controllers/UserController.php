@@ -7,29 +7,32 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function store(Request $request) {
+        $request->validate([
+            // Add validation rules here
+        ]);
+        User::create($request->validated());
+        return redirect('users')->with('success', 'User created successfully');
+    }
 
-    public function store( $request){
-        User::create( $request->validated());
-        return redirect('users')->with('success','user created succesfully');
-    }   
-
-    public function index(){
-        $users = User::all(); // Added to fetch users
+    public function index() {
+        $users = User::all(); // Fetch all users
         return view('user.index', compact('users'));
     }
 
-    public function all(Request $request) 
-    { 
+    public function all(Request $request) { 
         return User::all();
     }
 
-     public function update(Request $request, $id){
+    public function update(Request $request, $id) {
         $user = User::findOrFail($id);
-        return $user->update();
+        $user->update($request->validated());
+        return redirect('users')->with('success', 'User updated successfully');
     }
 
-    public function delete($id){
+    public function delete($id) {
         $user = User::findOrFail($id);
-        return $user->delete();
+        $user->delete();
+        return redirect('users')->with('success', 'User deleted successfully');
     }
 }
