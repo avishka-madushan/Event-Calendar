@@ -1,4 +1,3 @@
-
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
@@ -19,7 +18,6 @@ Route::get('event/{id}/edit', [EventController::class, 'edit']);
 
 // DELETE_EVENTS
 Route::delete('event/delete/{id}', [EventController::class, 'delete']);
-
 
 
 // For event views
