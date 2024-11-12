@@ -1,4 +1,8 @@
+
+<?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -8,34 +12,17 @@ Route::get('/', function () {
 Route::post('event/store', [EventController::class, 'store']);
 
 // READ_EVENTS
-Route::get('event/all', [EventController::class, 'all']);
+Route::get('event', [EventController::class, 'index']);
 
 // UPDATE_EVENTS
-Route::post('event/{id}', [EventController::class, 'update']);
+Route::get('event/{id}/edit', [EventController::class, 'edit']);
 
 // DELETE_EVENTS
-Route::delete('event/{id}', [EventController::class, 'delete']);
+Route::delete('event/delete/{id}', [EventController::class, 'delete']);
 
-// CREATE_USER
-Route::post('user/store', [UsersController::class, 'store']);
 
-// READ_A_USER
-Route::get('user/all', [UsersController::class, 'all']);
-
-// UPDATE_A_USER
-Route::post('user/{id}', [UsersController::class, 'update']);
-
-// DELETE_A_USER
-Route::delete('user/{id}', [UsersController::class, 'delete']);
-
-// For user views
-Route::get('user', [UsersController::class, 'index']);
-Route::get('employee/create', [UsersController::class, 'create']);
-Route::get('employee/{id}/edit', [UsersController::class, 'edit']);
-Route::get('user/{id}/get', [UsersController::class, 'get']); 
 
 // For event views
-Route::get('event', [EventController::class, 'index']);
 Route::get('event/create', [EventController::class, 'create']);
-Route::get('event/{id}/edit', [EventController::class, 'edit']);
+Route::post('event/update/{id}', [EventController::class, 'update']);
 Route::get('event/{id}/get', [EventController::class, 'get']);
