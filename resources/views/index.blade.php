@@ -1,53 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Event Calendar')</title>
+@extends('event.layout')
+@section('content')
 
-    <!-- Bootstrap CSS for styling (optional) -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .custom-table-bordered th, 
+    .custom-table-bordered td {
+        border-width: 2px !important;
+    }
+    .custom-table-bordered td:nth-child(1) { border-color: #0d6efd !important; } 
+    .custom-table-bordered td:nth-child(2) { border-color: #6610f2 !important; }
+    .custom-table-bordered td:nth-child(3) { border-color: #20c997 !important; } 
+    .custom-table-bordered td:nth-child(4) { border-color: #ffc107 !important; } 
+    .custom-table-bordered td:nth-child(5) { border-color: #dc3545 !important; } 
+</style>
 
-    <!-- Custom CSS (optional) -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-</head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Event Calendar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<div class="card mt-5 shadow-sm rounded border-0">
+    <div class="d-flex justify-content-between align-items-center p-3 bg-primary text-white rounded-top">
+        <h2 class="mb-0">Events</h2>
+        <a href="{{ url('event/create') }}" class="btn btn-light text-primary fw-semibold">Create New Event</a>
+    </div>
 
-    <!-- Main Content Section -->
-    <main class="container my-4">
-        @yield('content')
-    </main>
+    <div class="card-body p-4">
+        <table class="table table-hover table-striped custom-table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Event Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <!-- <th>User ID</th> -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($events as $event)
+                <tr>
+                    <td>{{ $event->event_title }}</td>
+                    <td>{{ $event->description }}</td>
+                    <td>{{ $event->date }}</td>
+                    <!-- <td>{{ $event->userid }}</td> -->
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{{ url('event/' . $event->id . '/edit') }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ url('event/delete/' . $event->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted">There are no events available.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <!-- Footer Section -->
-    <footer class="text-center py-3">
-        <p>&copy; {{ date('Y') }} Event Calendar Project. All rights reserved.</p>
-    </footer>
-
-    <!-- JavaScript (optional, if needed for Bootstrap) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+@endsection
