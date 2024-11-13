@@ -9,14 +9,13 @@ class UserController extends Controller
 {
     public function store(Request $request) {
         $request->validate([
-            // Add validation rules here
         ]);
         User::create($request->validated());
         return redirect('users')->with('success', 'User created successfully');
     }
 
     public function index() {
-        $users = User::all(); // Fetch all users
+        $users = User::all();
         return view('user.index', compact('users'));
     }
 
